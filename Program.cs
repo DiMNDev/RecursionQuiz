@@ -38,67 +38,44 @@ string mockBob = """
 """;
 Console.WriteLine(mockBob);
 
-int sum = recursiveCountAddition(1, 0);
-Console.WriteLine($"Sum: {sum}");
+Stopwatch recursionStopwatch = new Stopwatch();
+recursionStopwatch.Start();
+int recursionMethodNumber = fibonacciRecursionMethod(4);
+recursionStopwatch.Stop();
 
-int diff = recursiveCountSubtraction(1000);
-Console.WriteLine($"Sub: {diff}");
+Stopwatch standardMethodStopwatch = new Stopwatch();
+standardMethodStopwatch.Start();
+int standardMethodNumber = fibonacciStandardMethod(4);
+standardMethodStopwatch.Stop();
 
-int fiboNumber = fibonacciMethod(4);
-Console.WriteLine(fiboNumber);
+Console.WriteLine($"Recursive Method Output: {recursionMethodNumber}");
+Console.Write($" The recursion method completed in: {recursionStopwatch.ElapsedMilliseconds}");
+Console.WriteLine($"Standard Method Output: {standardMethodNumber}");
+Console.Write($" The standard method completed in: {recursionStopwatch.ElapsedMilliseconds}");
 
-int recursiveCountAddition(int currentNumber, int count = 1, int currentValue = 0)
-{
-    if (count < 1000)
-    {
-        // Console.WriteLine(currentNumber);
-        // Console.WriteLine($"{currentNumber} + {count} = {currentNumber + count}");
-        return recursiveCountAddition(currentNumber + count, count + 1, currentValue += currentNumber);
-    }
-    // return currentNumber + count;
-    return currentValue;
-}
-
-int recursiveCountSubtraction(int currentNumber, int currentValue = 0, int count = 1000)
-{
-    if (count > 500)
-    {
-        // Console.WriteLine(currentNumber);
-        // Console.WriteLine($"{currentNumber} / {currentNumber}  - 1 = {currentNumber / currentNumber - 1 + (currentNumber + 1)}");
-        currentValue += currentNumber + currentNumber - 1;
-        return recursiveCountSubtraction(currentNumber + currentNumber - 1, currentValue, count - 1);
-    }
-    return currentValue;
-}
-
-int fibonacciMethod(int currentNumber)
+int fibonacciRecursionMethod(int currentNumber)
 {
 
     if (currentNumber == 0)
     {
-        // Console.WriteLine($"{currentNumber - 1} + {currentNumber - 2} = {currentNumber - 1 + (currentNumber - 2)}");
         return 0;
     }
     else if (currentNumber == 1)
     {
-        // Console.WriteLine($"{currentNumber - 1} + {currentNumber - 2} = {currentNumber - 1 + (currentNumber - 2)}");
         return 1;
     }
-
-    Console.WriteLine(currentNumber);
-    return fibonacciMethod(currentNumber - 1) + fibonacciMethod(currentNumber - 2);
+    return fibonacciRecursionMethod(currentNumber - 1) + fibonacciRecursionMethod(currentNumber - 2);
 
 
 }
 
-Stopwatch stopwatch = new Stopwatch();
-stopwatch.Start();
 
-// go higher than 1000 if needed until you can see a difference
-for (int i = 0; i < 1000; i++)
+int fibonacciStandardMethod(int fibNumber)
 {
-    // Place the code you want to time here
+    int solution = 0;
+    for (int i = 0; i < fibNumber; i++)
+    {
+        solution += fibNumber - 1 + fibNumber - 2;
+    }
+    return solution;
 }
-
-stopwatch.Stop();
-Console.WriteLine("Elapsed time: {0} ms", stopwatch.ElapsedMilliseconds);
