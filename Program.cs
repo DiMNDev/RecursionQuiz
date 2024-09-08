@@ -38,20 +38,23 @@ string mockBob = """
 """;
 Console.WriteLine(mockBob);
 
+int inputValue = 40;
+
 Stopwatch recursionStopwatch = new Stopwatch();
 recursionStopwatch.Start();
-int recursionMethodNumber = fibonacciRecursionMethod(4);
+int recursionMethodNumber = fibonacciRecursionMethod(inputValue);
 recursionStopwatch.Stop();
 
 Stopwatch standardMethodStopwatch = new Stopwatch();
 standardMethodStopwatch.Start();
-int standardMethodNumber = fibonacciStandardMethod(4);
+int standardMethodNumber = fibonacciStandardMethod(inputValue);
 standardMethodStopwatch.Stop();
 
 Console.WriteLine($"Recursive Method Output: {recursionMethodNumber}");
-Console.Write($" The recursion method completed in: {recursionStopwatch.ElapsedMilliseconds}");
+Console.WriteLine($" The recursion method completed in: {recursionStopwatch.ElapsedMilliseconds}");
 Console.WriteLine($"Standard Method Output: {standardMethodNumber}");
-Console.Write($" The standard method completed in: {recursionStopwatch.ElapsedMilliseconds}");
+Console.WriteLine($" The standard method completed in: {standardMethodStopwatch.ElapsedMilliseconds}");
+Console.Beep();
 
 int fibonacciRecursionMethod(int currentNumber)
 {
@@ -64,7 +67,10 @@ int fibonacciRecursionMethod(int currentNumber)
     {
         return 1;
     }
-    return fibonacciRecursionMethod(currentNumber - 1) + fibonacciRecursionMethod(currentNumber - 2);
+    else
+    {
+        return fibonacciRecursionMethod(currentNumber - 1) + fibonacciRecursionMethod(currentNumber - 2);
+    }
 
 
 }
@@ -73,9 +79,13 @@ int fibonacciRecursionMethod(int currentNumber)
 int fibonacciStandardMethod(int fibNumber)
 {
     int solution = 0;
-    for (int i = 0; i < fibNumber; i++)
+    int firstNum = 0;
+    int secondNum = 1;
+    for (int i = 2; i <= fibNumber; i++)
     {
-        solution += fibNumber - 1 + fibNumber - 2;
+        solution = firstNum + secondNum;
+        firstNum = secondNum;
+        secondNum = solution;
     }
     return solution;
 }
