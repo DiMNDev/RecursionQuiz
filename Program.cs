@@ -38,25 +38,25 @@ string mockBob = """
 """;
 Console.WriteLine(mockBob);
 
-int inputValue = 40;
+int inputValue = 1000;
 
 Stopwatch recursionStopwatch = new Stopwatch();
 recursionStopwatch.Start();
-int recursionMethodNumber = fibonacciRecursionMethod(inputValue);
+int recursionMethodNumber = SumNeighborRecursiveMethod(inputValue);
 recursionStopwatch.Stop();
 
 Stopwatch standardMethodStopwatch = new Stopwatch();
 standardMethodStopwatch.Start();
-int standardMethodNumber = fibonacciStandardMethod(inputValue);
+int standardMethodNumber = SumNeighborStandardMethod(inputValue);
 standardMethodStopwatch.Stop();
 
 Console.WriteLine($"Recursive Method Output: {recursionMethodNumber}");
-Console.WriteLine($" The recursion method completed in: {recursionStopwatch.ElapsedMilliseconds}");
+Console.WriteLine($" The recursion method completed in: {recursionStopwatch.Elapsed}");
 Console.WriteLine($"Standard Method Output: {standardMethodNumber}");
-Console.WriteLine($" The standard method completed in: {standardMethodStopwatch.ElapsedMilliseconds}");
+Console.WriteLine($" The standard method completed in: {standardMethodStopwatch.Elapsed}");
 Console.Beep();
 
-int fibonacciRecursionMethod(int currentNumber)
+int SumNeighborRecursiveMethod(int currentNumber)
 {
 
     if (currentNumber == 0)
@@ -69,23 +69,19 @@ int fibonacciRecursionMethod(int currentNumber)
     }
     else
     {
-        return fibonacciRecursionMethod(currentNumber - 1) + fibonacciRecursionMethod(currentNumber - 2);
+        return currentNumber + SumNeighborRecursiveMethod(currentNumber - 1);
     }
 
 
 }
 
 
-int fibonacciStandardMethod(int fibNumber)
+int SumNeighborStandardMethod(int limit)
 {
     int solution = 0;
-    int firstNum = 0;
-    int secondNum = 1;
-    for (int i = 2; i <= fibNumber; i++)
+    for (int i = 1; i <= limit; i++)
     {
-        solution = firstNum + secondNum;
-        firstNum = secondNum;
-        secondNum = solution;
+        solution += i;
     }
     return solution;
 }
